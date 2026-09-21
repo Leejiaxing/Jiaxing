@@ -16,7 +16,20 @@ npm run build      # Type-check and build into dist/
 npm run preview    # Preview the production build
 ```
 
-The relative asset base supports hosting the build at either a domain root or a repository subdirectory such as `/Jiaxing/`. This change does not publish the site automatically.
+The relative asset base supports hosting the build at either a domain root or a repository subdirectory such as `/Jiaxing/`.
+
+## Deploy to GitHub Pages
+
+The workflow in `.github/workflows/deploy-pages.yml` builds and deploys the site on every push to `main`. It can also be run manually from the repository's Actions tab.
+
+One-time setup:
+
+1. Open https://github.com/Leejiaxing/Jiaxing/settings/pages.
+2. Under **Build and deployment → Source**, select **GitHub Actions**.
+3. Commit and push the workflow and this README to `main`.
+4. Open the **Actions** tab and wait for **Deploy homepage to GitHub Pages** to complete successfully. Its deployment link is the authoritative site URL; without a custom domain, the expected address is https://leejiaxing.github.io/Jiaxing/.
+
+For subsequent updates, edit the site, run `npm run build`, commit, and push to `main`. GitHub Actions installs dependencies with `npm ci`, builds `dist/`, and publishes that build. Do not commit `node_modules/` or `dist/`; no separate `gh-pages` branch or access token is needed. If a workflow fails, open the failed step in Actions for the error; the new version is not published until deployment succeeds.
 
 ## Update content
 
