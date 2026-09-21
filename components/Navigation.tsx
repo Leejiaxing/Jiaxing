@@ -1,99 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { SectionId } from '../types';
-import { Menu, X } from 'lucide-react';
+import { SITE_CONFIG } from '../constants';
 
-interface NavigationProps {
-  activeSection: SectionId;
-}
-
-const Navigation: React.FC<NavigationProps> = ({ activeSection }) => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
+export default function Navigation({ activeSection }: { activeSection: SectionId }) {
+  const [open, setOpen] = useState(false);
+  const menuButton = useRef<HTMLButtonElement>(null);
+  const navLinks = [{ id: SectionId.PROJECTS, label: 'Research' }, { id: SectionId.PUBLICATIONS, label: 'Publications' }, { id: SectionId.ABOUT, label: 'About' }, { id: SectionId.CONTACT, label: 'Contact' }];
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const navLinks = [
-    { id: SectionId.HOME, label: 'Home' },
-    { id: SectionId.ABOUT, label: 'About' },
-    { id: SectionId.PUBLICATIONS, label: 'Publications' },
-    { id: SectionId.PROJECTS, label: 'Research' },
-    { id: SectionId.CONTACT, label: 'Contact' },
-  ];
-
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsMobileMenuOpen(false);
-    }
-  };
-
-  return (
-    <nav 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled || isMobileMenuOpen
-          ? 'bg-white/80 backdrop-blur-md border-b border-gray-200/50' 
-          : 'bg-transparent'
-      }`}
-    >
-      <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
-        <div 
-          className="text-sm font-semibold tracking-tight cursor-pointer text-gray-900 hover:text-black/70 transition-colors"
-          onClick={() => scrollToSection(SectionId.HOME)}
-        >
-          Alex Chen
-        </div>
-
-        {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-8">
-          {navLinks.map((link) => (
-            <button
-              key={link.id}
-              onClick={() => scrollToSection(link.id)}
-              className={`text-xs font-medium transition-colors ${
-                activeSection === link.id 
-                  ? 'text-black' 
-                  : 'text-gray-500 hover:text-black'
-              }`}
-            >
-              {link.label}
-            </button>
-          ))}
-        </div>
-
-        {/* Mobile Menu Button */}
-        <button 
-          className="md:hidden p-2 text-gray-600"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
-      </div>
-
-      {/* Mobile Menu Overlay */}
-      {isMobileMenuOpen && (
-        <div className="absolute top-14 left-0 w-full bg-white/95 backdrop-blur-xl border-b border-gray-200 shadow-lg md:hidden pb-6 px-6 animate-slide-up">
-          <div className="flex flex-col space-y-4 mt-4">
-             {navLinks.map((link) => (
-              <button
-                key={link.id}
-                onClick={() => scrollToSection(link.id)}
-                className="text-sm font-medium text-left py-2 text-gray-600 hover:text-black border-b border-gray-100"
-              >
-                {link.label}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-    </nav>
-  );
-};
-
-export default Navigation;
+    const close = (event: KeyboardEvent) => { if (event.key === 'Escape' && open) { setOpen(false); menuButton.current?.focus(); } };
+    const resize = () => { if (window.innerWidth > 700) setOpen(false); };
+    window.addEventListener('keydown', close); window.addEventListener('resize', resize);
+    return () => { window.removeEventListener('keydown', close); window.removeEventListener('resize', resize); };
+  }, [open]);
+  return <header className="site-header"><nav className="nav-shell" aria-label="Main navigation">
+    <a href="#home" className="wordmark" onClick={() => setOpen(false)}>{SITE_CONFIG.name}<span className="wordmark-dot">.</span></a>
+    <div id="navigation-links" className={`nav-links ${open ? 'is-open' : ''}`}>
+      {navLinks.map(link => <a key={link.id} href={`#${link.id}`} onClick={() => setOpen(false)} aria-current={activeSection === link.id ? 'location' : undefined}>{link.label}</a>)}
+      <a className="nav-scholar" href={SITE_CONFIG.scholar} target="_blank" rel="noreferrer">Google Scholar <ArrowUpRight size={13} /></a>
+    </div>
+    <button ref={menuButton} className="menu-toggle" aria-expanded={open} aria-controls="navigation-links" aria-label={open ? 'Close navigation' : 'Open navigation'} onClick={() => setOpen(!open)}>{open ? <X size={22} /> : <Menu size={22} />}</button>
+  </nav></header>;
+}

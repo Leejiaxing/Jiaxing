@@ -1,53 +1,14 @@
-import React from 'react';
-import { SITE_CONFIG, NEWS } from '../constants';
-
-const About: React.FC = () => {
-  // Split bio into intro sentence and details
-  const bioParagraphs = SITE_CONFIG.about.split('\n\n');
-  const intro = bioParagraphs[0];
-  const details = bioParagraphs.slice(1);
-
-  return (
-    <section id="about" className="py-24 md:py-32 bg-[#f5f5f7]">
-      <div className="max-w-5xl mx-auto px-6">
-        
-        <div className="mb-16 md:mb-24">
-          <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-6">About Me</h2>
-          <p className="text-3xl md:text-5xl font-medium text-[#1d1d1f] leading-tight tracking-tight max-w-3xl">
-            {intro}
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-24">
-          {/* Detailed Bio */}
-          <div className="lg:col-span-7 space-y-6 text-lg text-gray-600 leading-relaxed font-normal">
-            {details.map((paragraph, idx) => (
-              <p key={idx}>{paragraph.trim()}</p>
-            ))}
-          </div>
-
-          {/* News Timeline */}
-          <div className="lg:col-span-5">
-            <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wide mb-6 border-b border-gray-200 pb-4">
-              Latest Updates
-            </h3>
-            <div className="space-y-8">
-              {NEWS.map((item) => (
-                <div key={item.id} className="group">
-                  <div className="text-xs font-semibold text-gray-400 mb-1 group-hover:text-blue-600 transition-colors">
-                    {item.date}
-                  </div>
-                  <div className="text-base text-gray-900 font-medium leading-snug">
-                    {item.content}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-export default About;
+import { ArrowUpRight } from 'lucide-react';
+import { EDUCATION, SITE_CONFIG } from '../constants';
+export default function About() {
+  return <section id="about" className="about section-tinted"><div className="container"><p className="eyebrow">A LITTLE ABOUT ME</p>
+    <div className="about-grid"><div className="about-copy"><h2>Research with structure.<br /><span>A real-world perspective.</span></h2>
+      <p>I'm Jiaxing Li (<span lang="zh-CN">李嘉兴</span>), a Ph.D. student in Software Engineering at Southeast University's School of Computer Science and Engineering.</p>
+      <p>My research connects graph learning with language model agents, with a focus on robust generalization, tool use, retrieval, and evaluation. I am interested in how structured knowledge helps intelligent systems reason and act in complex environments.</p>
+      <p>Previously, I worked on advertising recommendation and cold-start algorithms at Ant Group. That experience continues to shape my interest in evaluating models through the tasks they actually accomplish.</p>
+      <a className="text-link" href={SITE_CONFIG.github} target="_blank" rel="noreferrer">Find me on GitHub <ArrowUpRight size={16} /></a>
+    </div><figure className="portrait-card"><img src={`${import.meta.env.BASE_URL}portrait.jpg`} alt="Portrait of Jiaxing Li" width="867" height="1035" loading="lazy" /><figcaption><span>Jiaxing Li <span lang="zh-CN">李嘉兴</span></span><span>Southeast University</span></figcaption></figure></div>
+    <div className="background-grid"><div><h3 className="background-title">Education</h3><div className="timeline">{EDUCATION.map(item=><div className="timeline-item" key={item.degree}><span className={`timeline-dot ${item.current ? 'current' : ''}`} /><p className="timeline-period">{item.period}</p><h4>{item.degree}</h4><p>Southeast University</p><p className="timeline-detail">{item.detail}</p></div>)}</div></div>
+    <div><h3 className="background-title">Experience</h3><div className="experience-item"><p className="timeline-period">JUN — OCT 2023</p><h4>Advertising Algorithm Engineer</h4><p>Ant Group · Intelligent Engine Department</p></div><div className="experience-item"><p className="timeline-period">JUN — OCT 2022</p><h4>Advertising Algorithm Intern</h4><p>Ant Group · Intelligent Engine Department</p></div><div className="funding-note"><h4>Funded research</h4><p>Participant in the National Key R&amp;D Program on intelligent air traffic management (2025–2028) and an NSFC General Program on connectivity-based depression diagnosis (2024–2028).</p></div></div></div>
+  </div></section>;
+}

@@ -1,72 +1,91 @@
-import { Publication, Project, NewsItem } from './types';
+import type { Publication } from './types';
 
+// Source: ../李嘉兴_简历/main_en.tex and main.tex, reviewed 2026-09-21.
+// Status is supplied by the author's CV, not inferred from a venue/year.
 export const SITE_CONFIG = {
-  name: "Alex Chen",
-  role: "PhD Candidate in Computer Science",
-  university: "Stanford University",
-  email: "alex.chen@example.stanford.edu",
-  twitter: "https://twitter.com",
-  github: "https://github.com",
-  linkedin: "https://linkedin.com",
-  scholar: "https://scholar.google.com",
-  about: `I am a final-year PhD candidate at the Stanford Artificial Intelligence Laboratory (SAIL), advised by Prof. Jane Doe. 
-
-  My research interests lie at the intersection of Computer Vision and Robot Learning. Specifically, I am interested in how we can leverage large-scale foundation models to enable robots to generalize to unseen environments.
-  
-  Prior to my PhD, I received my B.S. in EECS from UC Berkeley.`
+  name: 'Jiaxing Li', chineseName: '李嘉兴', role: 'Ph.D. Student',
+  university: 'Southeast University', school: 'School of Computer Science and Engineering',
+  email: 'leejiaxing618@gmail.com', github: 'https://github.com/Leejiaxing',
+  scholar: 'https://scholar.google.com/citations?user=zonQxC0AAAAJ', updated: 'September 2026',
 };
-
-export const NEWS: NewsItem[] = [
-  { id: '1', date: 'Sep 2024', content: 'One paper accepted to NeurIPS 2024!' },
-  { id: '2', date: 'Jun 2024', content: 'Started internship at Google DeepMind.' },
-  { id: '3', date: 'May 2024', content: 'Successfully passed my qualifying exam.' },
-];
-
 export const PUBLICATIONS: Publication[] = [
   {
-    id: 'p1',
-    title: "Learning to Manipulate Deformable Objects with Visual Feedback",
-    authors: ["Alex Chen", "Sarah Johnson", "Jane Doe"],
-    venue: "NeurIPS 2024",
-    year: 2024,
-    paperUrl: "#",
-    codeUrl: "#",
-    abstract: "We propose a novel method for manipulating deformable objects using a visual feedback loop that adapts to changing material properties in real-time."
+    id: 'unified-reweighting',
+    title: 'Generalizing on Diverse Shifts: A Unified Topology-Aware Reweighting Algorithm for Graphs',
+    authors: ['Jiaxing Li', 'Jiashuo Liu', 'Weihuang Zheng', 'Jiayun Wu', 'Peng Cui', 'Youyong Kong'],
+    venue: 'IEEE Transactions on Pattern Analysis and Machine Intelligence',
+    venueShort: 'TPAMI', status: 'In press', firstAuthor: true,
   },
   {
-    id: 'p2',
-    title: "Vision-Language Models as Zero-Shot Planners",
-    authors: ["Alex Chen", "Michael Brown", "Jane Doe"],
-    venue: "CVPR 2023 (Oral)",
-    year: 2023,
-    paperUrl: "#",
-    codeUrl: "#",
-    abstract: "This paper explores the capabilities of large vision-language models to act as high-level planners for embodied agents without any fine-tuning."
+    id: 'atc-bench',
+    title: 'ATC-Bench: A Simulation-Grounded Benchmark for Evaluating LLM-Generated Air Traffic Control Instructions',
+    authors: ['Jinjun Cai', 'Jiaxing Li', 'Xingyue Wang', 'Weihuang Zheng', 'Youyong Kong', 'Hui Ding'],
+    venue: 'Conference on Empirical Methods in Natural Language Processing',
+    venueShort: 'EMNLP', year: 2026, status: 'Accepted',
   },
   {
-    id: 'p3',
-    title: "Robust Sim-to-Real Transfer via Domain Randomization",
-    authors: ["Emily White", "Alex Chen", "David Lee"],
-    venue: "ICRA 2023",
-    year: 2023,
-    paperUrl: "#",
-    abstract: "A system for improving sim-to-real transfer in robotic grasping tasks using extensive domain randomization techniques."
-  }
-];
+    id: 'neighbor-shift', title: 'Let Invariant Learning Inspire Neighbor-Shift Generalization on Graphs',
+    authors: ['Jiaxing Li', 'Jiayi Gao', 'Binhao Gu', 'Youyong Kong'],
+    venue: 'IEEE Transactions on Artificial Intelligence', venueShort: 'TAI',
+    year: 2026, status: 'Published', details: '7(3): 1690–1701', firstAuthor: true,
+  },
+  {
+    id: 'cold-start', title: 'Embedding uncertainty modeling for cold-start item recommendation',
+    authors: ['Jiaxing Li', 'Youyong Kong'], venue: 'Neurocomputing', venueShort: 'Neurocomputing',
+    year: 2026, status: 'Published', details: '665: 132144', firstAuthor: true,
+  },
+  {
+    id: 'ego-attention', title: 'Ego Attention Network: Local Awareness Boosts Graph Attention for Graph Representation Learning',
+    authors: ['Jiaxing Li', 'Hui Ding', 'Ke Zhang', 'Youyong Kong'],
+    venue: 'IEEE Transactions on Signal and Information Processing over Networks', venueShort: 'TSIPN',
+    year: 2026, status: 'Published', details: '12: 299–310', firstAuthor: true,
+  },
+  {
+    id: 'sarl', title: 'SARL: Structure-Aligned Reinforcement Learning for Bridging the Perception-Action Gap in Airspace',
+    authors: ['Binhao Gu', 'Jinjun Cai', 'Weihuang Zheng', 'Jiaxing Li', 'Youyong Kong', 'Hui Ding'],
+    venue: 'International Conference on Machine Learning', venueShort: 'ICML',
+    year: 2026, status: 'Published',
+  },
+  {
+    id: 'm3d-bfs', title: 'M3D-BFS: a Multi-stage Dynamic Fusion Strategy for Sample-Adaptive Multi-Modal Brain Network Analysis',
+    authors: ['Rui Dong', 'Xiaotong Zhang', 'Jiaxing Li', 'Yueying Li', 'Jiayin Wei', 'Youyong Kong'],
+    venue: 'Findings of the Computer Vision and Pattern Recognition Conference', venueShort: 'CVPR Findings',
+    year: 2026, status: 'Published',
+  },
+  {
+    id: 'bleg', title: 'BLEG: LLM Functions as Powerful fMRI Graph-Enhancer for Brain Network Analysis',
+    authors: ['Rui Dong', 'Zitong Wang', 'Jiaxing Li', 'Weihuang Zheng', 'Youyong Kong'],
+    venue: 'Findings of the Computer Vision and Pattern Recognition Conference', venueShort: 'CVPR Findings',
+    year: 2026, status: 'Published',
+  },
+  {
+    id: 'dynamic-reweighting', title: 'Topology-Aware Dynamic Reweighting for Distribution Shifts on Graph',
+    authors: ['Weihuang Zheng', 'Jiashuo Liu', 'Jiaxing Li', 'Jiayun Wu', 'Peng Cui', 'Youyong Kong'],
+    venue: 'International Conference on Machine Learning', venueShort: 'ICML',
+    year: 2025, status: 'Published', details: 'PMLR 267: 78221–78259',
+  },
+  {
+    id: 'rationale-learning', title: 'Exploring Rationale Learning for Continual Graph Learning',
+    authors: ['Lei Song', 'Jiaxing Li', 'Qinghua Si', 'Shihan Guan', 'Youyong Kong'],
+    venue: 'AAAI Conference on Artificial Intelligence', venueShort: 'AAAI',
+    year: 2025, status: 'Published', details: '39(19): 20540–20548',
+  },
+  {
+    id: 'node-pair', title: 'Suit the Node Pair to the Case: A Multi-Scale Node Pair Grouping Strategy for Graph-MLP Distillation',
+    authors: ['Rui Dong', 'Jiaxing Li', 'Weihuang Zheng', 'Youyong Kong'],
+    venue: 'International Joint Conference on Artificial Intelligence', venueShort: 'IJCAI',
+    year: 2025, status: 'Published', details: '2775–2783',
+  },
+  {
+    id: 'hepa', title: 'HePa: Heterogeneous Graph Prompting for All-Level Classification Tasks',
+    authors: ['Jinghong Jia', 'Lei Song', 'Jiaxing Li', 'Youyong Kong'],
+    venue: 'AAAI Conference on Artificial Intelligence', venueShort: 'AAAI',
+    year: 2025, status: 'Published', details: '39(11): 11915–11923',
+  },
 
-export const PROJECTS: Project[] = [
-  {
-    id: 'pr1',
-    title: "RobotGPT",
-    description: "A foundation model for general-purpose robotic control trained on 1M+ trajectories.",
-    image: "https://picsum.photos/800/600?random=1",
-    tags: ["Robotics", "LLMs", "Python"]
-  },
-  {
-    id: 'pr2',
-    title: "NeRF-Nav",
-    description: "Using Neural Radiance Fields for autonomous navigation in complex indoor environments.",
-    image: "https://picsum.photos/800/600?random=2",
-    tags: ["NeRF", "Navigation", "C++"]
-  }
+];
+export const EDUCATION = [
+  { degree: 'Ph.D. in Software Engineering', period: '2024 — 2027 (expected)', detail: 'School of Computer Science and Engineering', current: true },
+  { degree: 'Master’s in Computer Science and Technology', period: '2020 — 2023', detail: 'School of Computer Science and Engineering' },
+  { degree: 'Bachelor’s in Software Engineering', period: '2016 — 2020', detail: 'School of Software Engineering' },
 ];

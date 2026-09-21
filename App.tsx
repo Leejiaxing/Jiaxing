@@ -1,57 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import About from './components/About';
 import Publications from './components/Publications';
 import Research from './components/Research';
 import Footer from './components/Footer';
-import ResearchChat from './components/ResearchChat';
 import { SectionId } from './types';
 
-const App: React.FC = () => {
-  const [activeSection, setActiveSection] = useState<SectionId>(SectionId.HOME);
-
-  // Intersection Observer to detect active section for highlighting nav
+export default function App() {
+  const [activeSection, setActiveSection] = useState(SectionId.HOME);
   useEffect(() => {
-    const observerOptions = {
-      root: null,
-      rootMargin: '-20% 0px -70% 0px', // trigger when section is near top
-      threshold: 0
+    const update = () => {
+      const sections = Object.values(SectionId).map(id => document.getElementById(id))
+        .filter((section): section is HTMLElement => Boolean(section)).sort((a, b) => a.offsetTop - b.offsetTop);
+      const current = sections.filter(section => section.getBoundingClientRect().top <= 180).at(-1);
+      if (current) setActiveSection(current.id as SectionId);
     };
-
-    const handleIntersect = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id as SectionId);
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(handleIntersect, observerOptions);
-    
-    const sections = Object.values(SectionId);
-    sections.forEach(id => {
-      const element = document.getElementById(id);
-      if (element) observer.observe(element);
-    });
-
-    return () => observer.disconnect();
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    return () => window.removeEventListener('scroll', update);
   }, []);
-
-  return (
-    <main className="relative min-h-screen w-full font-sans">
-      <Navigation activeSection={activeSection} />
-      
-      <Hero />
-      <About />
-      <Publications />
-      <Research />
-      <Footer />
-      
-      {/* Gemini AI Integration */}
-      <ResearchChat />
-    </main>
-  );
-};
-
-export default App;
+  return <><a className="skip-link" href="#main">Skip to content</a><Navigation activeSection={activeSection} /><main id="main"><Hero /><Research /><Publications /><About /></main><Footer /></>;
+}

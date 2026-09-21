@@ -3,36 +3,15 @@ export interface Publication {
   title: string;
   authors: string[];
   venue: string;
-  year: number;
+  venueShort: string;
+  year?: number;
+  status: 'Published' | 'Accepted' | 'In press';
+  details?: string;
   paperUrl?: string;
   codeUrl?: string;
-  abstract: string; // Used for AI context
+  firstAuthor?: boolean;
+  equalContribution?: boolean;
 }
-
-export interface Project {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  tags: string[];
-}
-
-export interface NewsItem {
-  id: string;
-  date: string;
-  content: string;
-}
-
-export interface ChatMessage {
-  role: 'user' | 'model';
-  text: string;
-  isTyping?: boolean;
-}
-
 export enum SectionId {
-  HOME = 'home',
-  ABOUT = 'about',
-  PUBLICATIONS = 'publications',
-  PROJECTS = 'projects',
-  CONTACT = 'contact'
+  HOME = 'home', ABOUT = 'about', PUBLICATIONS = 'publications', PROJECTS = 'research', CONTACT = 'contact'
 }
